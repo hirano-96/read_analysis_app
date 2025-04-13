@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block header %}
+<h1 class="text-twitter-lightGray">{% block title %}Authors{% endblock %}</h1>
+{% if g.user %}
+<a
+  class="action text-twitter-blue hover:text-twitter-blue/80"
+  href="{{ url_for('author.create') }}"
+  >Add New Author</a
+>
+{% endif %} {% endblock %} {% block content %}
+<div class="bg-twitter-cardBg rounded-lg p-4">
+  <ul class="divide-y divide-twitter-gray/20">
+    {% for author in authors %}
+    <li class="py-2">
+      <div class="text-twitter-white">{{ author['name'] }}</div>
+      <div class="text-twitter-gray text-sm">
+        Added by {{ author['created_by'] }}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

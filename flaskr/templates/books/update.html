@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Edit "{{ book['title'] }}"{% endblock %}</h1>
+{% endblock %} {% block content %}
+<form method="post" class="bg-twitter-cardBg rounded-lg p-4">
+  <label for="title" class="text-twitter-lightGray">Title</label>
+  <input
+    name="title"
+    id="title"
+    class="w-full p-2 rounded"
+    value="{{ request.form['title'] or book['title'] }}"
+    required
+  />
+
+  <label for="author" class="text-twitter-lightGray mt-4">Author</label>
+  <input
+    name="author"
+    id="author"
+    class="w-full p-2 rounded"
+    value="{{ request.form['author'] or book['author'] }}"
+    required
+  />
+
+  <label for="publisher" class="text-twitter-lightGray mt-4">Publisher</label>
+  <input
+    name="publisher"
+    id="publisher"
+    class="w-full p-2 rounded"
+    value="{{ request.form['publisher'] or book['publisher'] }}"
+    required
+  />
+
+  <label for="start_date" class="text-twitter-lightGray mt-4">Start Date</label>
+  <input
+    type="date"
+    name="start_date"
+    id="start_date"
+    class="w-full p-2 rounded"
+    value="{{ request.form['start_date'] or book['start_date'] }}"
+  />
+
+  <label for="end_date" class="text-twitter-lightGray mt-4">End Date</label>
+  <input
+    type="date"
+    name="end_date"
+    id="end_date"
+    class="w-full p-2 rounded"
+    value="{{ request.form['end_date'] or book['end_date'] }}"
+  />
+
+  <label for="impression" class="text-twitter-lightGray mt-4">Impression</label>
+  <textarea name="impression" id="impression" class="w-full p-2 rounded">
+{{ request.form['impression'] or book['impression'] }}</textarea
+  >
+
+  <input
+    type="submit"
+    value="Save"
+    class="bg-twitter-blue text-white px-4 py-2 rounded mt-4 hover:bg-twitter-blue/80"
+  />
+</form>
+<hr class="my-4 border-twitter-gray/20" />
+<form action="{{ url_for('books.delete', id=book['id']) }}" method="post">
+  <input
+    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+    type="submit"
+    value="Delete"
+    onclick="return confirm('Are you sure?');"
+  />
+</form>
+{% endblock %}

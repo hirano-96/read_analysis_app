@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Add New Genre{% endblock %}</h1>
+{% endblock %} {% block content %}
+<form method="post" class="bg-twitter-cardBg rounded-lg p-4">
+  <label for="name" class="text-twitter-lightGray">Genre Name</label>
+  <input name="name" id="name" class="w-full p-2 rounded" required />
+
+  <input
+    type="submit"
+    value="Save"
+    class="bg-twitter-blue text-white px-4 py-2 rounded mt-4 hover:bg-twitter-blue/80"
+  />
+</form>
+{% endblock %}

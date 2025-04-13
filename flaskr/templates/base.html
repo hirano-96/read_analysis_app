@@ -1,0 +1,88 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          twitter: {
+            blue: '#1DA1F2',
+            dark: '#15202B',
+            bgDark: '#192734',
+            cardBg: '#253341',
+            gray: '#657786',
+            lightGray: '#AAB8C2',
+            extraLightGray: '#E1E8ED',
+            white: '#FFFFFF'
+          }
+        }
+      }
+    }
+  }
+</script>
+<body class="bg-twitter-bgDark min-h-screen">
+  <nav class="bg-twitter-dark p-4 flex justify-between items-center fixed w-full top-0 z-50">
+    <h1><a class="text-twitter-blue text-2xl font-bold hover:text-twitter-blue/80" href="{{ url_for('index') }}">Flaskr</a></h1>
+    <ul>
+      {% if g.user %}
+      <li class="inline-block mr-4"><span class="text-twitter-lightGray">{{ g.user['username'] }}</span></li>
+      <li class="inline-block"><a href="{{ url_for('auth.logout') }}" class="text-twitter-blue hover:text-twitter-lightGray">Log Out</a></li>
+      {% else %}
+      <li class="inline-block mr-4"><a href="{{ url_for('auth.register') }}" class="text-twitter-blue hover:text-twitter-lightGray">Register</a></li>
+      <li class="inline-block"><a href="{{ url_for('auth.login') }}" class="text-twitter-blue hover:text-twitter-lightGray">Log In</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  <div class="flex pt-16">
+    {% if g.user %}
+    <aside class="w-64 fixed h-full bg-twitter-dark p-4">
+      <nav class="space-y-2">
+        <a
+          href="{{ url_for('books.book_list') }}"
+          class="block w-full text-twitter-lightGray hover:bg-twitter-cardBg rounded-full px-4 py-2"
+        >
+          Book List
+        </a>
+        <hr class="border-twitter-gray/20 my-4">
+        <a
+          href="{{ url_for('books.create_book') }}"
+          class="block w-full text-twitter-lightGray hover:bg-twitter-cardBg rounded-full px-4 py-2"
+        >
+          Add New Book
+        </a>
+        <a
+          href="{{ url_for('author.index') }}"
+          class="block w-full text-twitter-lightGray hover:bg-twitter-cardBg rounded-full px-4 py-2"
+        >
+          Authors
+        </a>
+        <a
+          href="{{ url_for('genre.index') }}"
+          class="block w-full text-twitter-lightGray hover:bg-twitter-cardBg rounded-full px-4 py-2"
+        >
+          Genres
+        </a>
+        <hr class="border-twitter-gray/20 my-4">
+        <a
+          href="{{ url_for('analytics.index') }}"
+          class="block w-full text-twitter-lightGray hover:bg-twitter-cardBg rounded-full px-4 py-2"
+        >
+          Analytics
+        </a>
+      </nav>
+    </aside>
+    {% endif %}
+    <main class="flex-1 {% if g.user %}ml-64{% endif %}">
+      <section class="content max-w-3xl mx-auto p-4">
+        <header class="border-b border-twitter-gray/20 py-2 mb-4 flex justify-between items-center text-twitter-lightGray">
+          {% block header %}{% endblock %}
+        </header>
+        {% for message in get_flashed_messages() %}
+        <div class="flash bg-twitter-cardBg border border-twitter-gray/20 text-twitter-lightGray p-3 mb-4 rounded">{{ message }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+      </section>
+    </main>
+  </div>
+</body>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block header %}
+<h1 class="text-twitter-lightGray">{% block title %}Book List{% endblock %}</h1>
+{% if g.user %}
+<a
+  class="action text-twitter-blue hover:text-twitter-blue/80"
+  href="{{ url_for('books.create_book') }}"
+  >Add New Book</a
+>
+{% endif %} {% endblock %} {% block content %} {% for book in books %}
+<article class="post bg-twitter-cardBg rounded-lg p-4 mb-4">
+  <header class="flex justify-between items-start">
+    <div>
+      <h1 class="text-twitter-white text-xl font-bold mb-1">
+        {{ book['title'] }}
+      </h1>
+      <div class="about text-twitter-gray">
+        by {{ book['author_name'] }} | {{ book['genre_name'] }} | {{
+        book['publisher'] }}
+      </div>
+      <div class="text-twitter-gray text-sm mt-1">
+        Registered by: {{ book['registered_by'] }}
+      </div>
+    </div>
+    {% if g.user %}
+    <a
+      class="action text-twitter-blue hover:text-twitter-blue/80"
+      href="{{ url_for('books.create_record', book_id=book['id']) }}"
+      >Add Reading Record</a
+    >
+    {% endif %}
+  </header>
+</article>
+{% endfor %} {% endblock %}

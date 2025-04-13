@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Register New Book{% endblock %}</h1>
+{% endblock %} {% block content %}
+<form method="post" class="bg-twitter-cardBg rounded-lg p-4">
+  <label for="title" class="text-twitter-lightGray">Title</label>
+  <input name="title" id="title" class="w-full p-2 rounded" required />
+
+  <label for="author_id" class="text-twitter-lightGray mt-4">Author</label>
+  <select name="author_id" id="author_id" class="w-full p-2 rounded" required>
+    <option value="">Select Author</option>
+    {% for author in authors %}
+    <option value="{{ author['id'] }}">{{ author['name'] }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="genre_id" class="text-twitter-lightGray mt-4">Genre</label>
+  <select name="genre_id" id="genre_id" class="w-full p-2 rounded" required>
+    <option value="">Select Genre</option>
+    {% for genre in genres %}
+    <option value="{{ genre['id'] }}">{{ genre['name'] }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="publisher" class="text-twitter-lightGray mt-4">Publisher</label>
+  <input name="publisher" id="publisher" class="w-full p-2 rounded" required />
+
+  <input
+    type="submit"
+    value="Register"
+    class="bg-twitter-blue text-white px-4 py-2 rounded mt-4 hover:bg-twitter-blue/80"
+  />
+</form>
+{% endblock %}
